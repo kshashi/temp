@@ -1,0 +1,38 @@
+﻿@model MetLife.Annuities.Web.Areas.Clients.Models.ResourcesIndexViewModel
+
+<div class="section" id="section-resources-documents">
+	<form class="subsection" autocomplete="off" id="filter-documents">
+		<select class="custom-select" name="documents">
+			<option selected="selected">All</option>
+            @foreach (var item in Model.Documents.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+		</select>
+		<div class="filter-search-wrapper">
+			<input class="filter-search" type="text" autocomplete="off" placeholder="Search here" />
+			<button class="filter-submit" type="submit">Search</button>
+		</div>
+	</form>
+	<div class="subsection" id="application-documents">
+		<h3>Application Documents</h3>
+		<p>Your Financial Professional will upload your product documents here for your convenience once you have decided on a product and confirmed the delivery of the prospectus.</p>
+	</div>
+    @foreach (var category in Model.Documents.Categories)
+    {
+        <div class="subsection filter-category" data-filter-category="@category.Id">
+		<h3>@category.Name</h3>
+		<ul class="documents">
+			@foreach (var document in category.Documents)
+   {
+			<li class="filter-item" data-filter-item="@document.title">
+				<h4 class="document-title"><a href="@document.link" target="_blank">@document.title</a></h4>
+				<ul class="document-options">
+					<li class="download tooltip" data-tooltip="download"><a href="@document.link" target="_blank">Download</a></li>
+				</ul>
+			</li>
+   }
+		</ul>
+	</div>            
+    }
+</div>

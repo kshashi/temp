@@ -1,0 +1,25 @@
+﻿@model MetLife.Annuities.Web.Areas.Advisors.ViewModels.EditClientFinancialViewModel
+@{
+	Layout = "../Shared/_AdvisorLayout.cshtml";
+	ViewBag.Title = "Financial";
+	ViewBag.CssClass = "advisors-editclient";
+}
+
+@section header{
+    @Html.Partial("_Header", Model.Header.AdvisorHeaderViewModel)
+}
+
+@Html.Partial("_EditClientSteps",Model.Header)
+
+<div id="section-addclient-financial">
+	<div class="module">
+		<div>
+			<form action="/advisors/editclient/financial" autocomplete="off" class="client-form" id="editclient-financial" method="post">
+				@Html.Partial("_ClientFinancial", Model.ClientFinancial)
+			</form>
+		</div>
+	</div>
+</div>
+@section scripts{
+    @Html.Partial("_Scripts", "advisors")
+}

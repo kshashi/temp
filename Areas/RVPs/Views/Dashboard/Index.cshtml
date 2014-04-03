@@ -1,0 +1,151 @@
+﻿@model MetLife.Annuities.Web.Areas.RVPs.Models.DashboardIndexViewModel
+@{
+Layout = "../Shared/_RvpLayout.cshtml";
+ViewBag.Title = "RVP Dashboard";
+ViewBag.CssClass = "dashboard";
+}
+@section header{
+@Html.Partial("_Header", Model.RVPHeaderViewModel)
+}
+<link href="//vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+<div id="section-dashboard">
+	@if (Model.FirstTimeLogin == true)
+	{
+    <div class="module" id="section-profile">
+        <div>
+            <h2>Complete Your Profile - Upload A Photo</h2>
+            <p>We've already imported your profile information from our other systems, but since this profile is also viewable by client, it is important it is as complete as possible. Please review your profile and upload a photo.</p>
+            <a href="/rvps/profile/photo" class="edit-profile button-cta"><span>Edit Profile</span></a>
+        </div>
+    </div>
+	}
+    <div class="module" id="section-financial-advisors">
+        <div>
+            <h2>Financial Professionals</h2>
+            <div class="column main">
+                <div id="section-filter">
+                    <form id="filter-activities">
+						<div class="column filter-col">
+@*                            <label class="filter-label" for="filter-by">Filter By</label>
+                            <select class="custom-select" name="filter-fas">
+                                <option value="all">All</option>
+                                <option value="clients_entered">Clients Entered</option>
+                                <option value="activated_account">Activated Account</option>
+                                <option value="invite_sent">Invite Sent</option>
+                                <option value="no_invite_sent">No Invite Sent</option>
+							</select>*@
+						</div>
+						<div class="column sort-col">
+                            <label class="filter-label sort" for="sort-by">Sort By</label>
+                            <select class="custom-select" name="sort-fas">
+                                <option value="last_name">Last Name</option>
+                                <option value="first_name">First Name</option>
+                                <option value="firm_name">Firm Name</option>
+                                <option value="advisor_id">Advisor ID</option>
+                                <option value="city">City</option>
+                                <option value="state">State</option>
+							</select>
+						</div>
+					</form>
+                </div>
+                <div id="section-fas">
+                    <p>We're sorry, but not all firms have approved Annuities One-On-One yet.  If you don't see a firm you're looking for, please check back.  We're working on adding more firms all the time.  To see a full list of currently supported firms please <a href="#" class="supported-firms" data-modal="FirmsModalTemplate">[click here]</a>.</p>                    
+                </div>
+                <div class="spinner"></div>
+                <div class="no-data"></div>
+            </div>
+            <div class="column aside">
+                <h3>Find an FA</h3>
+                <form id="form-search-fa" autocomplete="off" >
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="fa-first-name">First Name</label>
+                            <input data-max-chars="35" data-allowed-chars="%5Cw%5Cs'" id="fa-first-name" name="fa-first-name" value="" type="text" autocomplete="off" tabindex="1" />
+                            <div class="error-msg">first name error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="fa-last-name">Last Name</label>
+                            <input data-max-chars="35" data-allowed-chars="%5Cw%5Cs%5C-.'" id="fa-last-name" name="fa-last-name" value="" type="text" autocomplete="off" tabindex="2" />
+                            <div class="error-msg">last name error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="fa-firm-name">Firm Name</label>
+                            <input data-max-chars="35" data-allowed-chars="%5Cw%5Cs%5C-.'" id="fa-firm-name" name="fa-firm-name" value="" type="text" autocomplete="off" tabindex="3" />
+                            <div class="error-msg">firm name error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="fa-id">Advisor ID</label>
+                            <input data-max-chars="35" data-allowed-chars="%5Cw%5Cs%5C-.'" id="fa-id" name="fa-id" value="" type="text" autocomplete="off" tabindex="4" />
+                            <div class="error-msg">FA ID error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="filter-by">Filter By</label>
+                            <select class="custom-select" name="filter-fas">
+                                <option value="all">All</option>
+                                <option value="clients_entered">Clients Entered</option>
+                                <option value="activated_account">Activated Account</option>
+                                <option value="invite_sent">Invite Sent</option>
+                                <option value="no_invite_sent">No Invite Sent</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field error-container">
+                            <label class="label-primary" for="fa-state">State</label>
+                            @Html.DropDownList("fa-state", Model.States, "None",new { @class = "custom-select required", tabindex = "5" })	
+                            <div class="error-msg">state error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pretty-checkboxes">
+                            <input id="my-territory" name="my-territory" type="checkbox" value="my-territory" tabindex="6" />
+                            <label for="my-territory">My Territory</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="#" id="find-fa-submit" class="find-fa button-cta" tabindex="7"><span>Find FA</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="module rvp" id="section-learning">
+        <div>
+            <h2>Annuities One-On-One Learning Center</h2>
+            <p>If you have any questions about Annuities One-On-One, we have resources to help you out.</p>
+            <div class="column">
+                <div class="video-wrap">
+                    <a class="play video-modal" data-video-id="@Model.FeaturedTutorial.video.uri"  id="@Model.FeaturedTutorial.video.uri" href="#">@Model.FeaturedTutorial.video.title</a>
+                </div>
+            </div>
+            <div class="column video-info">
+                <h3>@Model.FeaturedTutorial.video.title</h3>
+          
+                <p class="time">In these video tutorials you'll get a brief overview of the Advisor and Client Portals.</p>
+                <p>@Model.FeaturedTutorial.video.description</p>
+                <ul class="video-thumbs">
+                @foreach (var video in Model.Tutorials.videos.Skip(1))
+                {
+                    <li class="tooltip" data-tooltip="@video.video.title"><a href="/rvps/help#tutorials/@video.video.uri"><img width="98" height="69"  src="@video.video.thumbnail_uri" /><img src="../public/images/icon-play-button.png" class="play" width="40" height="40" alt=""></a></li>
+                }
+                </ul>
+                <p class="help-link"><a href="/rvps/help">Visit the help area</a></p>
+                
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+@Html.Partial("_Scripts", "advisors")
+}
+@section analytics{
+
+}

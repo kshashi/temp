@@ -1,0 +1,24 @@
+﻿@model MetLife.Annuities.Web.Areas.Clients.ViewModels.EditProfileBasicViewModel
+@{
+    ViewBag.Title = "Basic";
+	ViewBag.CssClass = "clients-editclient";
+}
+@section header{
+    @Html.Partial("_Header",Model.ClientHeaderViewModel) 
+}
+
+@Html.Partial("_EditClientSteps","basic")
+
+<div id="section-addclient-basic">
+	<div class="module">
+		<div>
+			<form action="/clients/editprofile/basic" autocomplete="off" class="client-form" id="form-editclient-basic" method="post">
+				@Html.Partial("_ClientBasic", Model.ClientBasic)
+			</form>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+    @Html.Partial("_Scripts", "")
+}

@@ -1,0 +1,193 @@
+@model MetLife.Annuities.Web.Areas.Clients.ViewModels.ApplicationsIndexViewModel
+@{
+    
+}
+<div class="module">
+    <div>
+        <h3>
+            Before you can start your application for the @Model.Annuity.ProductTypeName</h3>
+        <p>
+            The prospectus describes the features of the product you are considering purchasing
+            and is the legal document we are required to give you before you purchase. You have
+            the option to receive the prospectus electronically or in hard copy. If you would
+            like to receive it electronically, to ensure you receive it and can access, download,
+            print or save the prospectus for your records, we are asking you to please fill
+            out the information below to confirm you are who you say and you consent to receive
+            it electronically.
+        </p>
+        <p>
+            We will then e-mail you a copy of the prospectus and ask that you confirm your consent
+            and your ability to access the prospectus electronically through the e-mail address
+            you supply below.
+        </p>
+    </div>
+</div>
+<div id="risk-discolsures" class="module">
+    <div>
+        <strong>Consent to Electronic Delivery of Initial Prospectus:</strong> By checking
+        the &#34;I Agree&#34; box and providing my name, date-of-birth, last 4 digits of
+        SSN, and e-mail address, I have consented to receiving in electronic format, instead
+        of paper format, the initial prospectus for the @Model.Annuity.ProductTypeName (&#34;Contract&#34;)
+        directly from MetLife’s Annuities One-On-One website. I understand that by checking
+        &#34;I Agree&#34;, the following applies:
+        <ul id="disclosures">
+            <li>I have the right to receive the prospectus in paper or electronic format.</li>
+            <li>I may request the initial prospectus in paper format free of charge at any time
+                by contacting my financial professional.</li>
+            <li>My consent is a one-time consent and begins on the date MetLife receives electronic
+                confirmation of my consent (by providing my name and e-mail address, and checking
+                &#34;I Accept&#34;. I understand that I can revoke my consent and request paper
+                copies of the current version of the prospectus at any time by calling the Customer
+                Service Center toll-free at 1-800-343-8496 or by writing to MetLife at P.O. Box
+                10366, Des Moines, IA 50366. If I revoke this consent, MetLife will send me paper
+                copies of the prospectus prior to my purchase (if any) of the Contract or with the
+                confirmation statement of such purchase. I understand MetLife will not impose any
+                fees or charges if I revoke my consent.</li>
+            <li><em>To view the prospectus on your computer you will need the following:</em>
+                <ul id="system-requirements">
+                    <li>An internet connection. This connection may incur charges from internet services
+                        providers and/or local telephone companies. These costs are your responsibility.</li>
+                    <li>An e-mail account to receive communications.</li>
+                    <li>An internet browser.</li>
+                    <li>Adobe Acrobat Reader. If you have not installed the required Adobe Acrobat Reader,
+                        you can download the software from <a href="http://www.adobe.com/products/acrobat/readstep2.html">
+                            http://www.adobe.com/products/acrobat/readstep2.html</a></li>
+                    <li>Minimum Hardware Requirements:
+                        <p>
+                            The figures below are for reference only and represent the minimum hardware requirements
+                            to review the Documents electronically. Certain software configurations (e.g…web
+                            browser version) may incur hardware requirements that exceed what’s listed below.</p>
+                        <em>Windows</em>
+                        <ul id="minimum-requirements">
+                            <li>1.3GHz or faster processor</li>
+                            <li>Microsoft&reg; Windows&reg; XP with Service Pack 3 for 32 bit or Service Pack 2
+                                for 64 bit; Windows Server&reg; 2003 R2 (32 bit and 64 bit); Windows Server 2008
+                                or 2008 R2 (32 bit and 64 bit); Windows 7 (32 bit and 64 bit); Windows 8 (32 bit
+                                and 64 bit)</li>
+                            <li>256MB of RAM (512MB recommended)</li>
+                            <li>320MB of available hard-disk space</li>
+                            <li>1024x768 screen resolution</li>
+                            <li>Internet Explorer 7, 8, 9, or 10; Firefox Extended Support Release; Chrome</li>
+                        </ul>
+                        <p>
+                            Note: For 64-bit versions of Windows Server 2003 R2 and Windows XP (with Service
+                            Pack 2), <a href="http://support.microsoft.com/kb/930627">Microsoft Update KB930627</a>
+                            is required.</p>
+                        <em>Mac OS</em>
+                        <ul id="minimum-requirements">
+                            <li>Intel&reg; processor</li>
+                            <li>Mac OS X v10.6.4, v10.7.2, or v10.8</li>
+                            <li>1GB of RAM</li>
+                            <li>350MB of available hard-disk space </li>
+                            <li>1024x768 screen resolution</li>
+                            <li>Safari 5.1 for Mac OS X v10.6.8 or v10.7.2; Safari 5.2 for Mac OS X v10.8; Safari
+                                6.0 for Mac OS X v10.7.4 or v10.8</li>
+                        </ul>
+                        <p>
+                            I understand that, in order to save or retain the prospectus indefinitely, I must
+                            (i) download it (e.g., to a hard disk drive or a floppy diskette), or (ii) print
+                            it myself, in which case I may incur costs for which I am responsible.</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="module">
+    <div>
+        <p>
+            I wish to receive the prospectus electronically rather than in paper form. I have
+            read and agree to the Consent above.</p>
+        <div id="basic-info-header">
+            <strong>The Basics</strong><span> ( required* )</span>
+        </div>
+        <form id="prospectus-form" autocomplete="off" action="/clients/applications/agree" method="post">
+        <div class="field error-container full-name">
+            <label class="label-primary" for="client-first-name">
+                Full Name <span class="required-field">*</span></label>
+            <input class="required" data-max-chars="70" data-allowed-chars="text-hyphenated"
+                data-id="client-first-name" name="client-first-name" type="text" autocomplete="off" />
+            <div class="error-msg">
+                A name is required for every client profile.</div>
+        </div>
+        <div class="field error-container date-of-birth" id="field-client-dob" data-error-field="A date of birth">
+            <label class="label-primary" for="client-dob-month">
+                Date of Birth <span class="required-field">*</span></label>
+            <input class="required" data-max-chars="2" data-allowed-chars="number-month" id="client-dob-month"
+                name="client-dob-month" type="text" autocomplete="off" /><span class="separator">/</span>
+            <input class="required" data-max-chars="2" data-allowed-chars="number-day" id="client-dob-day"
+                name="client-dob-day" type="text" autocomplete="off" /><span class="separator">/</span>
+            <input class="required" data-max-chars="4" data-allowed-chars="number-year" id="client-dob-year"
+                name="client-dob-year" type="text" autocomplete="off" />
+            <div class="error-msg">
+                A valid date of birth is required for every client profile.</div>
+        </div>
+        <div class="field error-container ssn">
+            <label class="label-primary" for="client-social">
+                Last 4 Digits of SSN <span class="required-field">*</span></label>
+            <input class="required" data-max-chars="4" data-allowed-chars="number" data-id="client-social"
+                name="client-social" type="text" autocomplete="off" />
+            <div class="error-msg">
+                The last 4 digits of SSN are required.</div>
+        </div>
+        <div class="field error-container form-email" id="field-client-email">
+            <label class="label-primary" for="client-email">
+                Email Address <span class="required-field">*</span></label>
+            <input class="required valid-email" data-max-chars="120" data-allowed-chars="email"
+                data-clone-name="client-email[*]" id="client-email-0" name="client-email[0]"
+                type="text" autocomplete="off" />
+            <div class="error-msg">
+                A valid email address is required for every client profile.</div>
+        </div>
+        <button class="form-agree button-cta" type="submit">
+            I Agree</button>
+        <button class="form-do-not-agree button-cta" type="reset">
+            I Do Not Agree</button>
+        </form>
+        @*<div id="advisor-info">
+            <img src="@Model.Advisor.profile_image_uri" />
+            <ul class="contact-list">
+                <li><strong>@Model.Advisor.first_name @Model.Advisor.last_name</strong></li>
+                <li>@Model.Advisor.firm.firm_name</li>
+                <li>@Model.Advisor.address.address_line_1, @((Model.Advisor.address.address_line_2 != null) ? Model.Advisor.address.address_line_2 + ", " : "")
+                    @Model.Advisor.address.city @Model.Advisor.address.state @Model.Advisor.address.zip</li>
+                @foreach (var phone in Model.Advisor.phone_numbers)
+                {
+                    <li><em>@phone.type:</em> @phone.number</li> 
+                }
+                <li><a href="mailto:@Model.Advisor.email" class="email-address">@Model.Advisor.email</a></li>
+            </ul>
+        </div>*@
+        <div>&nbsp;</div>
+        <div id="section-advisor" class="module banner">
+	        <div>
+		       @if (Model.Advisor.profile_image_uri != null)
+                {
+					<div id="advisor-image-wrapper">
+                    	<img src="@Model.Advisor.profile_image_uri" alt="" />
+					</div>
+                 }
+		        <div id="advisor-info-wrapper">
+			
+			        <strong>@Model.Advisor.first_name @Model.Advisor.last_name</strong>
+			        <div class="address">
+				        <div>@Model.Advisor.address.address_line_1</div>
+                        @if (Model.Advisor.address.address_line_2 != null)
+                        {
+                            <div>@Model.Advisor.address.address_line_2</div>
+                        }
+				        <div>@Model.Advisor.address.city, @Model.Advisor.address.state @Model.Advisor.address.zip</div>
+			        </div>
+			        <div class="other-contact">
+				
+                        @foreach (var phone in @Model.Advisor.phone_numbers)
+                        {
+                            <div>Phone: @phone.number</div>
+                        }
+				        <div>Email: <a href="mailto:@Model.Advisor.email" class="email-address">@Model.Advisor.email</a></div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+    </div>
+</div>

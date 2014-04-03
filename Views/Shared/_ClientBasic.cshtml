@@ -1,0 +1,176 @@
+﻿@model MetLife.Annuities.Web.ViewModels.ClientBasicViewModel
+@Html.Hidden("client-id",Model.ClientID.GetValueOrDefault())
+<fieldset>
+	<h2>The Basics <em>( All fields required<span class="required-field">*</span> )</em></h2>
+	<div class="subsection">
+		<div class="column">
+			<div class="row">
+				<div class="field error-container">
+					<label class="label-primary" for="client-first-name">First Name <span class="required-field">*</span></label>
+					<input class="required" data-max-chars="35" data-allowed-chars="text-strict" data-id="client-first-name" name="client-first-name" value="@Model.FirstName" tabindex="1" type="text" autocomplete="off"  />
+					<div class="error-msg">A first name is required for every client profile.</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="field error-container">
+					<label class="label-primary" for="client-last-name">Last Name <span class="required-field">*</span></label>
+					<input class="required" data-max-chars="35" data-allowed-chars="text-hyphenated" id="client-last-name" name="client-last-name" value="@Model.LastName" tabindex="2" type="text" autocomplete="off"  />
+					<div class="error-msg">A last name is required for every client profile.</div>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="row">
+            @if (!string.IsNullOrEmpty(Model.FirstName))
+            {
+				<div class="field error-container" id="field-client-dob" data-error-field="A date of birth">
+					<label class="label-primary" for="client-dob-month">Date of Birth <span class="required-field">*</span></label>
+					<input class="required tab3" data-max-chars="2" data-allowed-chars="number-month" id="client-dob-month" name="client-dob-month" value="@string.Format("{0:00}",Model.DOBMonth)" tabindex="3" type="text" autocomplete="off" /><span class="separator">/</span>
+					<input class="required tab4" data-max-chars="2" data-allowed-chars="number-day" id="client-dob-day" name="client-dob-day" value="@string.Format("{0:00}",Model.DOBDay)" tabindex="4" type="text" autocomplete="off"  /><span class="separator">/</span>
+					<input class="required min-char tab5" data-max-chars="4" data-allowed-chars="number-year" id="client-dob-year" name="client-dob-year" value="@Model.DOBYear" tabindex="5" type="text" autocomplete="off"  />
+					<div class="error-msg">A valid date of birth is required for every client profile.</div>
+				</div>
+            }
+            else
+            {
+				<div class="field error-container" id="field-client-dob" data-error-field="A date of birth">
+					<label class="label-primary" for="client-dob-month">Date of Birth <span class="required-field">*</span></label>
+					<input class="required" data-max-chars="2" data-allowed-chars="number-month" id="client-dob-month" name="client-dob-month" tabindex="6" type="text" autocomplete="off" /><span class="separator">/</span>
+					<input class="required" data-max-chars="2" data-allowed-chars="number-day" id="client-dob-day" name="client-dob-day" tabindex="7" type="text" autocomplete="off"  /><span class="separator">/</span>
+					<input class="required" data-max-chars="4" data-allowed-chars="number-year" id="client-dob-year" name="client-dob-year" tabindex="8" type="text" autocomplete="off"  />
+					<div class="error-msg">A date of birth is required for every client profile.</div>
+				</div>                                
+            }
+			</div>
+			<div class="row">
+				<div class="field" id="field-client-marital-status">
+					<label class="label-primary" for="client-marital-status">Marital Status</label>
+					@Html.DropDownList("client-marital-status", Model.MaritalStatuses, new { @class = "custom-select", tabindex = "9"})
+				</div>
+				<div class="field error-container" id="field-client-gender">
+					<label class="label-primary" for="client-gender">Gender <span class="required-field">*</span></label>
+                    @Html.DropDownList("client-gender", Model.Genders, new { @class = "custom-select required", tabindex = "10" })
+					<div class="error-msg">A gender is required for every client profile.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<h2>Mailing Address</h2>
+	<div class="subsection">
+		<div class="column">
+			<div class="row">
+				<div class="field error-container" id="field-client-address">
+					<label class="label-primary" for="client-address-1">Street Address <span class="required-field">*</span></label>
+					<input class="required" data-max-chars="35" data-allowed-chars="alpha-numeric" id="client-address-1" name="client-address-1" value="@Model.Address1" tabindex="11" type="text" autocomplete="off"  />
+					<input class="clear" data-max-chars="35" data-allowed-chars="alpha-numeric" id="client-address-2" name="client-address-2" value="@Model.Address2" tabindex="12" type="text" autocomplete="off"  />
+					<div class="error-msg">A street address is required for every client profile.</div>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="row">
+				<div class="field error-container">
+					<label class="label-primary" for="client-city">City <span class="required-field">*</span></label>
+					<input class="required" data-max-chars="35" data-allowed-chars="text-hyphenated" value="@Model.City" id="client-city" name="client-city" tabindex="13" type="text" autocomplete="off"  />
+					<div class="error-msg">A city is required for every client profile.</div>
+				</div>
+			</div>
+			<div class="row error-container">
+				<div class="field" id="field-client-state">
+					<label class="label-primary" for="client-state">State <span class="required-field">*</span></label>
+                    @Html.DropDownList("client-state", Model.States, "None",new { @class = "custom-select required", tabindex = "14" })									
+				</div>
+				<div class="field" id="field-client-zip">
+					<label class="label-primary" for="client-zip">Zip <span class="required-field">*</span></label>
+					<input class="required min-char" data-max-chars="5" data-min-chars="5" data-allowed-chars="number" value="@Model.Zip" id="client-zip" name="client-zip" tabindex="15" type="text" autocomplete="off"  />
+				</div>
+				<div class="error-msg">A state and valid zip are required for every client profile.</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<h2>Contact Information</h2>
+	<div class="subsection">
+		<div class="row">
+			<div class="field error-container" id="field-client-phone">
+				<label class="label-primary" for="client-phone-type">Phone Number <span class="required-field">*</span></label>
+				@{ int count = 0; }
+				@if (Model.PhoneNumbers.Length == 0)
+				{
+					
+					<input class="required min-char" data-max-chars="10" data-min-chars="10" data-allowed-chars="phone-number" data-clone-name="client-phone[*].number" id="client-phone-0-number" name="client-phone[0].number" tabindex="17" type="text" autocomplete="off"  />
+					<select class="custom-select required" data-clone-name="client-phone[*].type" id="client-phone-0-type" name="client-phone[0].type" tabindex="16">
+					@foreach (var type in Model.PhoneNumberTypes)
+					{
+					    <option value="@type.Value">@type.Text</option>
+					}
+					</select>
+					} else
+				{
+					foreach (var item in Model.PhoneNumbers)
+					{
+							if (count == 0)
+							{
+							<input class="required min-char" data-max-chars="14" data-min-chars="10" data-allowed-chars="phone-number" data-clone-name="client-phone[*].number" id="client-phone-@(count)-number" name="client-phone[@(count)].number" tabindex="19" type="text" autocomplete="off"  value="@item.Number" />
+							<select class="custom-select required" data-clone-name="client-phone[*].type" id="client-phone-@(count)-type" name="client-phone[@(count)].type" tabindex="18">
+							   @foreach (var type in Model.PhoneNumberTypes)
+							   {
+							   		if (item.Type.ToString() == type.Value)
+							   		{
+										<option selected="selected" value="@type.Value">@type.Text</option>
+							   		}
+							   		else
+							   		{
+										<option value="@type.Value">@type.Text</option>
+							   		}
+							   }
+							</select>
+							}
+							else
+							{
+					       <div class="clone">
+									<input class="min-char" data-max-chars="14" data-allowed-chars="phone-number" data-clone-name="client-phone[*].number" id="client-phone-@(count)-number" name="client-phone[@(count)].number" type="text" autocomplete="off"  tabindex=@(count + 19) value="@item.Number" />
+								<select class="custom-select" data-clone-name="client-phone[*].type" id="client-phone-@(count)-type" data-selected="@item.Type" name="client-phone[@(count)].type" tabindex=@(count + 18)>
+								@foreach (var type in Model.PhoneNumberTypes)
+								{
+									if (item.Type.ToString() == type.Value)
+									{
+										<option selected="selected" value="@type.Value">@type.Text</option>
+									}
+									else
+									{
+										<option value="@type.Value">@type.Text</option>
+									}
+								}
+								</select>
+					       </div>
+							}
+					   count = count + 1;
+					}
+				}
+				
+				@{ int phoneCloneMax = 2; }
+				@if (count < phoneCloneMax + 1) {
+					<p class="add-field" data-clone-fields="#client-phone-0-type #client-phone-0-number" data-clone-max="@phoneCloneMax">Add another phone number</p>
+				}
+               <div class="error-msg">A valid phone number is required for every client profile.</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field clear error-container" id="field-client-email">
+				<label class="label-primary" for="client-email">Email Address <span class="required-field">*</span></label>
+				<input class="required valid-email" data-max-chars="120" data-allowed-chars="email" data-clone-name="client-email[*]" id="client-email-0" name="client-email[0]" tabindex="@(count + 20)" type="text" autocomplete="off"  value="@Model.EmailAddresses[0]" />
+				<div class="error-msg">A valid email address is required for every client profile.</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<div class="form-buttons">
+		<button class="form-save button-cta" tabindex="21" type="submit"><i></i> Save</button>
+		<button class="form-cancel" tabindex="22" type="reset"><i></i> Cancel</button>
+	</div>
+</fieldset>

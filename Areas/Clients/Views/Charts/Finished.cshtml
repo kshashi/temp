@@ -1,0 +1,126 @@
+﻿@model MetLife.Annuities.Web.Areas.Clients.ViewModels.ChartsFinishedViewModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    ViewBag.Title = "Finished";
+    ViewBag.CssClass = "finish-hypo";
+    int portfolioCount =0;
+    int fundCount = 0;
+}
+@section header {
+
+    @Html.Partial("_Header", Model.ClientHeaderViewModel) 
+
+}
+
+<div id="section-product-finished">
+@if (Model.Annuity == null)
+{
+    <div class="module error">
+        <div>
+            <h2>We're sorry, at this time Annuities One-On-One only supports products with riders selected. </h2>
+            <p>Please return to ForeSight to change your product options.</p>
+            <a href="/clients/charts/saved?view=expanded" class="edit button-cta"><span>Create New Annuity</span></a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="module success">
+        <div>
+            <h2>Finish Creating a New Hypothetical</h2>
+            <p>Please select which portfolios your client will be investing their money in and name the annuity to finish up.</p>
+        </div>
+    </div>
+    <div id="section-allocations">
+    	<form action="/clients/charts/finished" autocomplete="off" class="hypo-form" id="finish-hypo" method="post">
+			<div class="module">
+		        <div>
+		            <h3>Allocations: <span class="allocation-percent"></span><span>% allocated</span></h3>
+		            <p class="allocation-error">Please allocate 100% of the client investment to the portfolios below</p>
+		            <div class="allocation-form">
+                    @foreach (var portfolio in Model.Allocations.portfolios)
+                    {
+                        portfolioCount++;
+                        <fieldset class="section-@portfolioCount">
+			            	<h4>@portfolio.name: <span class="percent"></span><span>%</span></h4>
+			            	<p>@portfolio.description</p>
+                            @{int elementIndex = 0;
+                              int totalElements = portfolio.funds.Count();
+                              int requiredRows = (int)Math.Ceiling(((decimal)totalElements / (decimal)2));
+                              for (int i = 0; i < requiredRows; i++)
+                              {
+                                  if (elementIndex < totalElements)
+                                  {
+                            <div class="row">
+                               @for (int c = 0; c < 2; c++)
+                               {
+                                   if (elementIndex < totalElements)
+                                   {
+                                       var currentElement = portfolio.funds[elementIndex];
+                                       var disclosures = portfolio.funds[elementIndex].disclosure_code.Split(char.Parse(",")).Select(p=>p.Trim()).ToArray();
+                                       var disclosureString = string.Empty;
+                                       foreach (var disc in disclosures)
+                                       {
+                                           disclosureString += "<a href='#' class='define-link'>" + disc + "</a>, ";
+                                       }
+                                       if (disclosureString.Length > 0)
+                                       {
+                                           disclosureString = disclosureString.TrimEnd(new char[] { char.Parse(","), char.Parse(" ") });
+                                       }
+								<div class="column">
+									<input data-max-chars="3" data-allowed-chars="currency" id="AllocationGroups[@fundCount].percent" name="AllocationGroups[@fundCount].percent" type="text" autocomplete="off" value="" placeholder="0" />
+                                    
+									<label class="label-secondary tooltip" data-tooltip="@currentElement.fund_name  @Html.Raw(disclosureString)<br />@currentElement.description"  for="allocation-2"><a href="#">@Html.Raw(currentElement.fund_name)</a></label>
+                                    <input type="hidden" data-skip-sanitize="true" name="AllocationGroups[@fundCount].name" id="AllocationGroups[@fundCount].name" value="@currentElement.fund_name" />
+                                    <input type="hidden" name="AllocationGroups[@fundCount].id" id="AllocationGroups[@fundCount].id" value="@currentElement.id" />
+                                    <input type="hidden" data-skip-sanitize="true" name="AllocationGroups[@fundCount].portfolioname"  id="AllocationGroups[@fundCount].portfolioname" value="@portfolio.name" />                                    
+								</div>	
+                                       fundCount++;
+                                   }
+                                   
+                                   elementIndex++;
+                               }
+							</div>
+                                  }
+                              }
+}
+						</fieldset>                         
+                    }
+                     
+       
+					</div>
+					<fieldset>
+						<div class="row">
+							<div class="column">
+								<label class="name-label" for="hypo-name">Name:</label>
+								<input class="required" data-max-chars="30" data-allowed-chars="alpha-numeric" id="hypo-name" name="hypo-name" tabindex="9" type="text" autocomplete="off" value="@Model.Annuity.Name" placeholder="Untitled Hypothetical" />
+								<span class="countdown"></span>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="row">
+							<div class="column">
+                                @Html.HiddenFor(g => g.Annuity.Id)
+                                @Html.HiddenFor(g=>g.Annuity.GuaranteedCompoundingRate)
+								<button class="form-save button-cta" tabindex="33" type="submit"><i></i>Save</button>
+							</div>
+						</div>
+					</fieldset>
+		        </div>
+		    </div>
+	    </form>
+	</div>
+    
+    if (Model.Disclosures != null && Model.Disclosures.disclosure.Length > 0)
+    {
+        @Html.Partial("_Disclosures",Model.Disclosures)
+    }
+}
+</div>
+
+
+
+@section scripts{
+	@Html.Partial("_Scripts", "")
+}

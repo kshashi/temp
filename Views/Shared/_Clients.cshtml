@@ -1,0 +1,33 @@
+<div id="section-clients">
+    <div class="module" id="section-filter">
+        <div>
+		<div class="client-header-wrapper">
+			<h2>Clients</h2><a href="/advisors/addclient/basic" class="add-clients button-cta"><i></i>Add Clients</a>
+		</div>
+            <form id="filter-clients" autocomplete="off" >
+                <div class="column filter-col">
+					<label class="filter-label" for="filter-by">FIND A CLIENT: </label>
+					<div class="filter-search-wrapper">
+						<input class="filter-search"  data-max-chars="60" data-allowed-chars="alpha-numeric" type="text" autocomplete="off" placeholder="Name or Location" value="" />
+						<button class="filter-submit" type="submit" />
+						Search</button>
+					</div>
+				</div>
+				<div class="column sort-col">
+					<label class="filter-label sort" for="sort-by">SORT BY</label>
+					<select class="custom-select" name="sort-clients">
+						<option value="last_name">Last Name</option>
+						<option value="city">City</option>
+						<option value="state">State</option>
+						<option value="recent_activity">Recent Activity</option>
+					</select>
+				</div>
+            </form>
+        </div>
+    </div>
+    <div class="module" id="section-activities">
+        <div id="client-template-container"></div>
+        <div class="spinner"></div>
+        <div class="no-data"></div>
+    </div>
+</div>
