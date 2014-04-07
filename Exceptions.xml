@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Messages>
+  <E000>
+    <Message>An Error has Occured. Please contact the Administrator.</Message>
+  </E000>
+  <E001>
+    <Message>Sample Custom Error Message - edited</Message>
+  </E001>
+</Messages>
